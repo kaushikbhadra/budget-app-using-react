@@ -1,0 +1,30 @@
+const path = require('path')
+
+module.exports = {
+  entry: ['./src/app.js'],
+  output: {
+    path: path.join(__dirname, 'public'),
+    filename: 'bundle.js',
+  },
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        loader: 'babel-loader',
+        test: /\.js$/, // Check all extension, when run babel
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.s?css$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
+  devtool: 'eval-cheap-module-source-map',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    historyApiFallback: true,
+  },
+}

@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; // 10/16px = 0.625 * 100 = 62.5% // SET 10px font size // 16px is default root size
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: $m-size;
+
+  @include respond(phone) {
+    font-size: $s-size;
+  }
+}
+
+button {
+  cursor: pointer;
+
+  &:active {
+    transform: translateY(0.2rem);
+    transition: all 0.2s;
+  }
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.is-active {
+  color: aqua;
+}
