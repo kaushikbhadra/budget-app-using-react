@@ -9,16 +9,6 @@ import './styles/style.scss'
 import 'normalize.css/normalize.css'
 const store = configureStore()
 
-store.dispatch(
-  addExpense({ description: 'Water Bill', amount: 500, createdAt: -22000 })
-)
-store.dispatch(
-  addExpense({ description: 'Gas Bill', amount: 1000, createdAt: -1000 })
-)
-store.dispatch(
-  addExpense({ description: 'Rent', amount: 10000, createAt: -21000 })
-)
-
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
