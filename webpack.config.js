@@ -10,7 +10,7 @@ module.exports = (env) => {
   return {
     entry: ['./src/app.js'],
     output: {
-      path: path.join(__dirname, 'public'),
+      path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js',
     },
     mode: isProduction ? 'production' : 'development',
@@ -19,7 +19,7 @@ module.exports = (env) => {
       rules: [
         {
           loader: 'babel-loader',
-          test: /\.js$/, // Check all extension, when run babel
+          test: /\.js$/,
           exclude: /node_modules/,
         },
         {
@@ -47,11 +47,13 @@ module.exports = (env) => {
         filename: 'style.css',
       }),
     ],
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? 'hidden-source-map' : 'inline-source-map',
     devServer: {
       static: {
         directory: path.join(__dirname, 'public'),
+        publicPath: '/dist/',
       },
+
       historyApiFallback: true,
     },
   }
