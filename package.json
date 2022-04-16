@@ -10,7 +10,9 @@
     "build:prod": "webpack  --env production",
     "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react -w",
     "dev-server": "webpack-dev-server",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build:prod"
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
@@ -22,6 +24,7 @@
     "babel-preset-env": "1.5.2",
     "babel-preset-react": "6.24.1",
     "css-loader": "^6.7.1",
+    "express": "^4.17.3",
     "live-server": "^1.2.1",
     "moment": "^2.29.2",
     "node-sass": "^7.0.1",
