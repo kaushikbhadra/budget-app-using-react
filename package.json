@@ -28,6 +28,7 @@
     "moment": "^2.29.2",
     "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
+    "numeral": "^2.0.6",
     "react": "16.14.0",
     "react-dates": "^21.8.0",
     "react-dom": "16.14.0",
@@ -39,11 +40,11 @@
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1",
     "uuid": "^8.3.2",
-    "webpack": "^5.70.0"  
+    "webpack": "^5.70.0"
   },
   "devDependencies": {
-    "live-server": "^1.2.1",
     "jest": "^27.5.1",
+    "live-server": "^1.2.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
   }
