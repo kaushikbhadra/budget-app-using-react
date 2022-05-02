@@ -6,6 +6,7 @@ import configureStore from './store/configureStore'
 
 import './styles/style.scss'
 import 'normalize.css/normalize.css'
+import './firebase/firebase'
 const store = configureStore()
 
 ReactDOM.render(
