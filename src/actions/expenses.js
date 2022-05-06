@@ -40,4 +40,29 @@ const editExpense = (id, update) => ({
   update,
 })
 
-export { addExpense, removeExpense, editExpense }
+//SET_EXPENSES
+const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses,
+})
+const startSetExpenses = () => {
+  return (dispatch) => {
+    const postListRef = firebase.ref(database, 'expenses')
+    return firebase.get(postListRef).then((snapshot) => {
+      const expenses = []
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          expenses.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val(),
+          })
+        })
+        console.log(expenses)
+        dispatch(setExpenses(expenses))
+      } else {
+        console.log('No data available')
+      }
+    })
+  }
+}
+export { addExpense, removeExpense, editExpense, setExpenses, startSetExpenses }
