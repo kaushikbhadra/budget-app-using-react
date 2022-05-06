@@ -56,6 +56,15 @@ const editExpense = (id, update) => ({
   update,
 })
 
+const startEditExpense = (id, update) => {
+  return (dispatch) => {
+    postListRef = firebase.ref(database, `expenses/${id}`)
+    return firebase.update(postListRef, update).then(() => {
+      dispatch(editExpense(id, update))
+    })
+  }
+}
+
 //SET_EXPENSES
 const setExpenses = (expenses) => ({
   type: 'SET_EXPENSES',
@@ -86,6 +95,7 @@ export {
   removeExpense,
   startRemoveExpense,
   editExpense,
+  startEditExpense,
   setExpenses,
   startSetExpenses,
 }
