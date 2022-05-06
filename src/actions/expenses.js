@@ -1,11 +1,14 @@
 import database, { firebase } from '../firebase/firebase'
+
+let postListRef = firebase.ref(database, 'expenses')
+
 //ADD_EXPENSE
 const addExpense = (expense) => ({
   type: 'ADD_EXPENSE',
   expense,
 })
 
-export const startAddExpense = (expenseData = {}) => {
+const startAddExpense = (expenseData = {}) => {
   return (dispatch) => {
     const {
       description = '',
@@ -14,7 +17,6 @@ export const startAddExpense = (expenseData = {}) => {
       createdAt = 0,
     } = expenseData
     const expense = { description, note, amount, createdAt }
-    const postListRef = firebase.ref(database, 'expenses')
     firebase.push(postListRef, expense).then((ref) => {
       dispatch(
         addExpense({
@@ -33,6 +35,20 @@ const removeExpense = ({ id } = {}) => ({
   id,
 })
 
+const startRemoveExpense = ({ id } = {}) => {
+  return (dispatch) => {
+    postListRef = firebase.ref(database, `expenses/${id}`)
+    firebase
+      .remove(postListRef)
+      .then(() => {
+        dispatch(removeExpense({ id }))
+      })
+      .catch((error) => {
+        console.log('Error Message:' + error)
+      })
+  }
+}
+
 //EDIT_EXPENSE
 const editExpense = (id, update) => ({
   type: 'EDIT_EXPENSE',
@@ -47,7 +63,6 @@ const setExpenses = (expenses) => ({
 })
 const startSetExpenses = () => {
   return (dispatch) => {
-    const postListRef = firebase.ref(database, 'expenses')
     return firebase.get(postListRef).then((snapshot) => {
       const expenses = []
       if (snapshot.exists()) {
@@ -57,7 +72,7 @@ const startSetExpenses = () => {
             ...childSnapshot.val(),
           })
         })
-        console.log(expenses)
+
         dispatch(setExpenses(expenses))
       } else {
         console.log('No data available')
@@ -65,4 +80,12 @@ const startSetExpenses = () => {
     })
   }
 }
-export { addExpense, removeExpense, editExpense, setExpenses, startSetExpenses }
+export {
+  addExpense,
+  startAddExpense,
+  removeExpense,
+  startRemoveExpense,
+  editExpense,
+  setExpenses,
+  startSetExpenses,
+}
