@@ -1,7 +1,5 @@
 import database, { firebase } from '../firebase/firebase'
 
-let postListRef = firebase.ref(database, 'expenses')
-
 //ADD_EXPENSE
 const addExpense = (expense) => ({
   type: 'ADD_EXPENSE',
@@ -9,7 +7,8 @@ const addExpense = (expense) => ({
 })
 
 const startAddExpense = (expenseData = {}) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
     const {
       description = '',
       note = '',
@@ -17,6 +16,7 @@ const startAddExpense = (expenseData = {}) => {
       createdAt = 0,
     } = expenseData
     const expense = { description, note, amount, createdAt }
+    const postListRef = firebase.ref(database, `users/${uid}/expenses`)
     firebase.push(postListRef, expense).then((ref) => {
       dispatch(
         addExpense({
@@ -36,8 +36,9 @@ const removeExpense = ({ id } = {}) => ({
 })
 
 const startRemoveExpense = ({ id } = {}) => {
-  return (dispatch) => {
-    postListRef = firebase.ref(database, `expenses/${id}`)
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const postListRef = firebase.ref(database, `users/${uid}/expenses/${id}`)
     firebase
       .remove(postListRef)
       .then(() => {
@@ -57,8 +58,9 @@ const editExpense = (id, update) => ({
 })
 
 const startEditExpense = (id, update) => {
-  return (dispatch) => {
-    postListRef = firebase.ref(database, `expenses/${id}`)
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const postListRef = firebase.ref(database, `users/${uid}/expenses/${id}`)
     return firebase.update(postListRef, update).then(() => {
       dispatch(editExpense(id, update))
     })
@@ -71,7 +73,9 @@ const setExpenses = (expenses) => ({
   expenses,
 })
 const startSetExpenses = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    const postListRef = firebase.ref(database, `users/${uid}/expenses`)
     return firebase.get(postListRef).then((snapshot) => {
       const expenses = []
       if (snapshot.exists()) {
