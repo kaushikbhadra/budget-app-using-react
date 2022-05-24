@@ -9,6 +9,8 @@ import configureStore from './store/configureStore'
 import './styles/style.scss'
 import 'normalize.css/normalize.css'
 import { firebaseAuth, authApp } from './firebase/firebase'
+import LoadingPage from './components/LoadingPage'
+
 const store = configureStore()
 const jsx = (
   <React.StrictMode>
@@ -25,7 +27,7 @@ const renderApp = () => {
     hasRendered = true
   }
 }
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'))
+ReactDOM.render(<LoadingPage />, document.getElementById('app'))
 
 firebaseAuth.onAuthStateChanged(authApp, (user) => {
   if (user) {

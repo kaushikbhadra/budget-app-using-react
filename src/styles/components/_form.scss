@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+
+  &__error {
+    margin: 0 0 $m-size 0;
+    font-style: italic;
+    color: rgb(238, 77, 77);
+  }
+
+  > * {
+    margin-bottom: $m-size;
+  }
+}

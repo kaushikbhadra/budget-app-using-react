@@ -1,0 +1,14 @@
+.input-group {
+  display: flex;
+  margin-bottom: $l-size;
+  &__item {
+    margin: 0 $s-size 0 0;
+  }
+  @include respond(phone) {
+    flex-direction: column;
+    margin-bottom: $s-size;
+    &__item {
+      margin: 0 0 $s-size 0;
+    }
+  }
+}

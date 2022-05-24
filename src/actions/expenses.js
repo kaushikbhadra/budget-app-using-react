@@ -87,8 +87,6 @@ const startSetExpenses = () => {
         })
 
         dispatch(setExpenses(expenses))
-      } else {
-        console.log('No data available')
       }
     })
   }

@@ -1,0 +1,12 @@
+.show-for-mobile {
+  display: none;
+  @include respond(phone) {
+    display: inline-block;
+  }
+}
+
+.show-for-desktop {
+  @include respond(phone) {
+    display: none;
+  }
+}
